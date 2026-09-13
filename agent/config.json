@@ -1,0 +1,35 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "agent",
+      "provider": "deepseek",
+      "model": "deepseek-v4-pro",
+      "timezone": "Asia/Shanghai",
+      "bot_name": "智能客服",
+      "bot_icon": "🤖"
+    }
+  },
+  "providers": {
+    "deepseek": {
+      "api_base": "https://api.deepseek.com"
+    }
+  },
+  "channels": {
+    "feishu": {
+      "enabled": false,
+      "app_id": "",
+      "app_secret": ""
+    }
+  },
+  "tools": {
+    "mcp_servers": {
+      "ticket": {
+        "type": "stdio",
+        "command": "mpscb-ticket",
+        "env": {
+          "MPSCB_DB": "data/mpscb.db"
+        }
+      }
+    }
+  }
+}
