@@ -20,6 +20,9 @@ get_user_preference = "mpscb.tools.preference_tool:GetPreferenceTool"
 set_user_preference = "mpscb.tools.preference_tool:SetPreferenceTool"
 record_feedback = "mpscb.tools.feedback_tool:RecordFeedbackTool"
 
+[project.scripts]
+mpscb-ticket = "mpscb.mcp_server.server:main"
+
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
