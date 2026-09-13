@@ -13,6 +13,13 @@ dev = [
     "pytest>=8.0",
 ]
 
+[project.entry-points."nanobot.tools"]
+match_faq = "mpscb.tools.faq_tool:MatchFaqTool"
+record_question = "mpscb.tools.question_tool:RecordQuestionTool"
+get_user_preference = "mpscb.tools.preference_tool:GetPreferenceTool"
+set_user_preference = "mpscb.tools.preference_tool:SetPreferenceTool"
+record_feedback = "mpscb.tools.feedback_tool:RecordFeedbackTool"
+
 [build-system]
 requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
