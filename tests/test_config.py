@@ -6,7 +6,7 @@ from pathlib import Path
 
 from nanobot.config.loader import load_config
 
-CONFIG = Path(__file__).parent.parent / "agent" / "config.json"
+CONFIG = Path(__file__).parent.parent / "config.json"
 
 
 def test_config_loads():

@@ -11,14 +11,15 @@
   },
   "providers": {
     "deepseek": {
+      "api_key": "${DEEPSEEK_API_KEY}",
       "api_base": "https://api.deepseek.com"
     }
   },
   "channels": {
     "feishu": {
       "enabled": false,
-      "app_id": "",
-      "app_secret": ""
+      "app_id": "${FEISHU_APP_ID}",
+      "app_secret": "${FEISHU_APP_SECRET}"
     }
   },
   "tools": {

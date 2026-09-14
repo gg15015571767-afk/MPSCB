@@ -13,10 +13,13 @@ DEFAULT_PREF = "data/preferences.json"
 
 
 def init_runtime(db_path: str | None = None, pref_path: str | None = None):
-    """初始化业务运行时：DB 引擎 + 偏好存储，并注入工具层单例。
+    """初始化业务运行时：加载 .env → DB 引擎 + 偏好存储，并注入工具层单例。
 
     必须在启动 nanobot agent（同进程）之前调用，工具才能拿到 DB/偏好依赖。
     """
+    from dotenv import load_dotenv
+
+    load_dotenv()  # 加载项目根 .env（DEEPSEEK_API_KEY / FEISHU_* / MPSCB_*）
     db = db_path or os.environ.get("MPSCB_DB", DEFAULT_DB)
     pref = pref_path or os.environ.get("MPSCB_PREF", DEFAULT_PREF)
     engine = create_engine_for_db(db)
@@ -26,7 +29,7 @@ def init_runtime(db_path: str | None = None, pref_path: str | None = None):
     return session_factory, preference_store
 
 
-def build_nanobot(config_path: str = "agent/config.json"):
+def build_nanobot(config_path: str = "config.json"):
     """从 config.json 构建 Nanobot SDK 实例（需 DEEPSEEK_API_KEY 才能 run）。"""
     from nanobot import Nanobot
 
