@@ -17,9 +17,12 @@
   },
   "channels": {
     "feishu": {
-      "enabled": false,
-      "app_id": "${FEISHU_APP_ID}",
-      "app_secret": "${FEISHU_APP_SECRET}"
+      "enabled": true,
+      "appId": "${FEISHU_APP_ID}",
+      "appSecret": "${FEISHU_APP_SECRET}",
+      "allowFrom": ["*"],
+      "streaming": false,
+      "replyToMessage": true
     }
   },
   "tools": {

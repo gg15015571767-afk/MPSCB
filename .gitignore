@@ -28,6 +28,10 @@ sessions/
 # 长期记忆 / 会话历史（运行时状态）
 agent/memory/
 agent/.nanobot/
+agent/HEARTBEAT.md
+agent/cron/
+agent/prompts/
+agent/triggers/
 MEMORY.md
 
 # 密钥 / 环境变量
