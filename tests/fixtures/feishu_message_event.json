@@ -1,0 +1,33 @@
+{
+  "schema": "2.0",
+  "header": {
+    "event_id": "1b6f4d9e2f3a4b5c8d7e6f5a4b3c2d1e0",
+    "token": "verification-token-placeholder",
+    "create_time": "1690000000000",
+    "event_type": "im.message.receive_v1",
+    "tenant_key": "2ed263bf32cf1651",
+    "app_id": "cli_aa22a61d4b78dbb3"
+  },
+  "event": {
+    "sender": {
+      "sender_id": {
+        "open_id": "ou_6220edc40785dae4f0ff6dc082901cdd",
+        "user_id": "71g34c2e",
+        "union_id": "on_8fc5a6b3d2e1"
+      },
+      "sender_type": "user",
+      "tenant_key": "2ed263bf32cf1651"
+    },
+    "message": {
+      "message_id": "om_9f2e8d7c6b5a4938271615141312",
+      "root_id": "",
+      "parent_id": "",
+      "create_time": "1690000000000",
+      "chat_id": "oc_7a2b3c4d5e6f708192a3b4c5d6e7f80",
+      "chat_type": "p2p",
+      "message_type": "text",
+      "content": "{\"text\":\"如何退款\"}",
+      "mentions": []
+    }
+  }
+}
