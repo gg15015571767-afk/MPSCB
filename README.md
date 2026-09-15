@@ -87,6 +87,8 @@ nanobot gateway --config agent/config.json
 - 开发协作规范：`CLAUDE.md`
 - Agent 人设 + 系统信息：`agent/AGENTS.md`
 - 开发流程：`项目流程.md`
+- 测试方法：`TESTING.md`
+- 踩坑记录 + 技术债：`CHALLENGES.md`
 
 ## 网络代理（本机）
 
