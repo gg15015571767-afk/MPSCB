@@ -19,7 +19,7 @@ class RecordFeedbackTool(Tool):
 
     @property
     def description(self) -> str:
-        return f"记录用户满意度反馈。rating 取值：{' / '.join(RATINGS)}。"
+        return "记录用户满意度反馈（1-5 星，5 最好）。rating 取值：1 到 5。"
 
     @property
     def parameters(self) -> dict[str, Any]:

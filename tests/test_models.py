@@ -58,8 +58,8 @@ def test_question_record(session):
 
 
 def test_feedback(session):
-    f = Feedback(user_id="u1", session_id="feishu:chat1", rating="satisfied")
+    f = Feedback(user_id="u1", session_id="feishu:chat1", rating="5")
     session.add(f)
     session.commit()
     got = session.query(Feedback).one()
-    assert got.rating == "satisfied"
+    assert got.rating == "5"

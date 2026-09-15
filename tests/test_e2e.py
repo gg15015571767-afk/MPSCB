@@ -58,7 +58,7 @@ def test_e2e_full_flow(tmp_path):
                 "update_ticket_status", {"ticket_no": ticket_no, "status": "waiting_human"}
             )
             # 4) 满意度反馈
-            await RecordFeedbackTool().execute(rating="satisfied")
+            await RecordFeedbackTool().execute(rating="5")
 
     asyncio.run(flow())
 
@@ -69,4 +69,4 @@ def test_e2e_full_flow(tmp_path):
         assert s.query(Ticket).count() == 1
         assert s.query(Ticket).one().status == "waiting_human"
         assert s.query(Feedback).count() == 1
-        assert s.query(Feedback).one().rating == "satisfied"
+        assert s.query(Feedback).one().rating == "5"

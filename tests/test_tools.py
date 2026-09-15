@@ -69,11 +69,11 @@ def test_record_question(session_factory, store, ctx, setup):
 
 
 def test_record_feedback(session_factory, store, ctx, setup):
-    run(RecordFeedbackTool(), ctx, rating="satisfied")
+    run(RecordFeedbackTool(), ctx, rating="5")
     with session_factory() as s:
         f = s.query(Feedback).one()
         assert f.user_id == "u1"
-        assert f.rating == "satisfied"
+        assert f.rating == "5"
 
 
 def test_entry_points_registered():

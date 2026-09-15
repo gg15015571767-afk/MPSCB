@@ -10,7 +10,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 # 枚举值（存字符串，便于扩展与查询）
 TICKET_STATUSES = ("pending", "processing", "waiting_human", "closed")
 RESOLUTIONS = ("faq_hit", "llm_fallback", "human")
-RATINGS = ("satisfied", "dissatisfied")
+RATINGS = ("1", "2", "3", "4", "5")  # 1-5 星，5 最好
 
 
 class Base(DeclarativeBase):
