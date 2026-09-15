@@ -64,3 +64,19 @@ def list_tickets(session: Session, user_id: str) -> list[Ticket]:
             select(Ticket).where(Ticket.user_id == user_id).order_by(Ticket.id.desc())
         )
     )
+
+
+def list_all_tickets(session: Session, status: str | None = None) -> list[Ticket]:
+    """列出工单（按创建倒序），可按状态过滤。"""
+    stmt = select(Ticket).order_by(Ticket.id.desc())
+    if status:
+        stmt = stmt.where(Ticket.status == status)
+    return list(session.scalars(stmt))
+
+
+def count_tickets_by_status(session: Session) -> dict[str, int]:
+    """按状态统计工单数量。"""
+    rows = session.execute(
+        select(Ticket.status, func.count()).group_by(Ticket.status)
+    ).all()
+    return {status: count for status, count in rows}
