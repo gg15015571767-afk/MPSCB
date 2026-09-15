@@ -1,0 +1,10 @@
+[
+  {"question": "如何退款", "answer": "7 天内可退，请联系客服并提供订单号。", "keywords": "退款,退钱,退货", "category": "售后"},
+  {"question": "多久发货", "answer": "下单后 24 小时内发货。", "keywords": "发货,配送,物流", "category": "配送"},
+  {"question": "忘记密码怎么办", "answer": "点击登录页「忘记密码」即可重置。", "keywords": "密码,忘记,登录", "category": "账号"},
+  {"question": "如何查询订单", "answer": "登录后在「我的订单」里查看。", "keywords": "订单,查询,物流", "category": "订单"},
+  {"question": "商品有质量问题", "answer": "请联系客服并提供照片，我们会安排退换。", "keywords": "质量,破损,退换", "category": "售后"},
+  {"question": "支持哪些支付方式", "answer": "支持微信、支付宝、银行卡。", "keywords": "支付,付款,微信,支付宝", "category": "支付"},
+  {"question": "如何修改收货地址", "answer": "发货前可在订单详情里修改。", "keywords": "地址,收货,修改", "category": "订单"},
+  {"question": "客服工作时间", "answer": "周一至周日 9:00-21:00。", "keywords": "客服,时间,工作时间", "category": "其他"}
+]

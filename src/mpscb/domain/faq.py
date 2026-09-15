@@ -29,3 +29,47 @@ def match_faq(session: Session, question: str) -> Faq | None:
                 return f
 
     return None
+
+
+def add_faq(
+    session: Session,
+    *,
+    question: str,
+    answer: str,
+    keywords: str = "",
+    category: str | None = None,
+) -> Faq:
+    faq = Faq(question=question, answer=answer, keywords=keywords, category=category)
+    session.add(faq)
+    session.commit()
+    return faq
+
+
+def list_faqs(session: Session) -> list[Faq]:
+    return list(session.scalars(select(Faq).order_by(Faq.id)))
+
+
+def delete_faq(session: Session, faq_id: int) -> bool:
+    faq = session.get(Faq, faq_id)
+    if faq is None:
+        return False
+    session.delete(faq)
+    session.commit()
+    return True
+
+
+def import_faqs(session: Session, items: list[dict]) -> int:
+    """批量导入 FAQ（items 为 [{question, answer, keywords?, category?}, ...]），返回导入条数。"""
+    count = 0
+    for item in items:
+        session.add(
+            Faq(
+                question=item["question"],
+                answer=item["answer"],
+                keywords=item.get("keywords", ""),
+                category=item.get("category"),
+            )
+        )
+        count += 1
+    session.commit()
+    return count
