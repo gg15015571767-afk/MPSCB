@@ -5,7 +5,7 @@ description = "MPSCB 智能客服系统 — 基于 Nanobot"
 requires-python = ">=3.11"
 dependencies = [
     "sqlalchemy>=2.0",
-    # nanobot-ai：本地 ../nanobot，editable 安装（模块5 接入）
+    "nanobot-ai==0.3.0",
 ]
 
 [project.optional-dependencies]
