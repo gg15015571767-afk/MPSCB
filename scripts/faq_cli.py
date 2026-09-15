@@ -66,6 +66,20 @@ def cmd_delete(args) -> None:
     print(f"已删除 FAQ #{args.id}" if ok else f"未找到 FAQ #{args.id}")
 
 
+def cmd_reset(args) -> None:
+    sf = _engine_and_factory()
+    with sf() as s:
+        removed = faq_service.clear_faqs(s)
+    msg = f"已清空 {removed} 条 FAQ"
+    if args.file:
+        data = json.loads(Path(args.file).read_text(encoding="utf-8"))
+        items = data if isinstance(data, list) else data.get("faqs", [])
+        with sf() as s:
+            imported = faq_service.import_faqs(s, items)
+        msg += f"，重新导入 {imported} 条（来自 {args.file}）"
+    print(msg)
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="FAQ 知识库管理")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -84,10 +98,17 @@ def main() -> None:
     p_del = sub.add_parser("delete", help="按 id 删除一条 FAQ")
     p_del.add_argument("--id", type=int, required=True, help="FAQ id")
 
+    p_reset = sub.add_parser("reset", help="清空 FAQ（可选重新导入）")
+    p_reset.add_argument("--file", help="清空后从该 JSON 文件重新导入")
+
     args = parser.parse_args()
-    {"list": cmd_list, "add": cmd_add, "import": cmd_import, "delete": cmd_delete}[
-        args.cmd
-    ](args)
+    {
+        "list": cmd_list,
+        "add": cmd_add,
+        "import": cmd_import,
+        "delete": cmd_delete,
+        "reset": cmd_reset,
+    }[args.cmd](args)
 
 
 if __name__ == "__main__":

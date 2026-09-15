@@ -35,3 +35,12 @@ def test_import_faqs(session):
     assert len(faqs) == 2
     assert faqs[1].keywords == "发货"
     assert faqs[1].category is None  # 未提供 category 时应为 None
+
+
+def test_clear_faqs(session):
+    faq_service.import_faqs(
+        session,
+        [{"question": "a", "answer": "b"}, {"question": "c", "answer": "d"}],
+    )
+    assert faq_service.clear_faqs(session) == 2
+    assert faq_service.list_faqs(session) == []

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from sqlalchemy import select
+from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from mpscb.domain.models import Faq
@@ -73,3 +73,11 @@ def import_faqs(session: Session, items: list[dict]) -> int:
         count += 1
     session.commit()
     return count
+
+
+def clear_faqs(session: Session) -> int:
+    """清空所有 FAQ，返回删除条数。"""
+    n = len(list_faqs(session))
+    session.execute(delete(Faq))
+    session.commit()
+    return n
