@@ -80,6 +80,19 @@ nanobot gateway --config agent/config.json
 | `tools.mcp_servers` | 工单 MCP Server（stdio） |
 | `preference.backend` | `file`（V1.0）→ `redis`（V1.2） |
 
+## Docker 部署（V1.2）
+
+```bash
+# 前提：已安装 Docker 并启动
+docker compose up -d --build   # 构建并后台启动
+docker compose logs -f         # 查看日志
+docker compose down            # 停止
+```
+
+- 密钥从 `.env` 经 `env_file` 注入，**不打包进镜像**。
+- SQLite 数据、会话状态分别挂到 `mpscb-data` / `mpscb-sessions` 卷，容器重启不丢。
+- `restart: unless-stopped` 保证崩溃后自动拉起，适合 7×24 运行。
+
 ## 文档索引
 
 - 产品需求：`PRD.md`
