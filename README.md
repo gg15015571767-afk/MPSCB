@@ -24,7 +24,7 @@
 | 语言 | Python 3.11 |
 | 数据存储 | SQLite（业务）+ 文件/Redis（偏好，可切换） |
 | AI 模型 | DeepSeek API（openai_compat 后端） |
-| 接入平台 | 飞书（首期） |
+| 接入平台 | 飞书 + 钉钉 |
 | 部署 | Docker / Docker Compose（V1.2） |
 
 ## 目录结构
@@ -75,7 +75,7 @@ nanobot gateway --config agent/config.json
 | 配置 | 说明 |
 |------|------|
 | `providers` | DeepSeek（`DEEPSEEK_API_KEY` + `api.deepseek.com`） |
-| `channels` | 飞书（webhook 或长连接） |
+| `channels` | 飞书、钉钉（长连接） |
 | `agents.workspace` | 指向 `agent/`（含 SOUL.md / AGENTS.md / memory） |
 | `tools.mcp_servers` | 工单 MCP Server（stdio） |
 | `preference.backend` | `file`（V1.0）→ `redis`（V1.2） |

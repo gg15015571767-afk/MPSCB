@@ -23,6 +23,12 @@
       "allowFrom": ["*"],
       "streaming": false,
       "replyToMessage": true
+    },
+    "dingtalk": {
+      "enabled": true,
+      "clientId": "${DINGTALK_CLIENT_ID}",
+      "clientSecret": "${DINGTALK_CLIENT_SECRET}",
+      "allowFrom": ["*"]
     }
   },
   "tools": {
