@@ -9,8 +9,11 @@ from mpscb.domain.models import Faq
 
 
 def match_faq(session: Session, question: str) -> Faq | None:
-    """三级策略的第 1 级：精确问法 → 关键词包含匹配。命中返回 Faq，否则 None。"""
-    q = (question or "").strip()
+    """三级策略的第 1 级：精确问法 → 关键词包含匹配。命中返回 Faq，否则 None。
+
+    大小写不敏感（英文场景用户常混写大小写）。
+    """
+    q = (question or "").strip().lower()
     if not q:
         return None
 
@@ -18,13 +21,13 @@ def match_faq(session: Session, question: str) -> Faq | None:
 
     # 1) 精确匹配标准问法
     for f in faqs:
-        if (f.question or "").strip() == q:
+        if (f.question or "").strip().lower() == q:
             return f
 
     # 2) 关键词包含匹配
     for f in faqs:
         for kw in (f.keywords or "").split(","):
-            kw = kw.strip()
+            kw = kw.strip().lower()
             if kw and kw in q:
                 return f
 
