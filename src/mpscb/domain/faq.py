@@ -6,12 +6,13 @@ from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from mpscb.domain.models import Faq
+from mpscb.domain.rag import semantic_match
 
 
 def match_faq(session: Session, question: str) -> Faq | None:
-    """三级策略的第 1 级：精确问法 → 关键词包含匹配。命中返回 Faq，否则 None。
+    """三级策略的第 1 级：精确 → 关键词 → 语义（RAG）。命中返回 Faq，否则 None。
 
-    大小写不敏感（英文场景用户常混写大小写）。
+    大小写不敏感；语义层用 embedding 向量相似度命中「换个问法」的同义问题。
     """
     q = (question or "").strip().lower()
     if not q:
@@ -30,6 +31,12 @@ def match_faq(session: Session, question: str) -> Faq | None:
             kw = kw.strip().lower()
             if kw and kw in q:
                 return f
+
+    # 3) 语义匹配（RAG）：向量相似度
+    if faqs:
+        hit = semantic_match(q, [f.question for f in faqs])
+        if hit is not None:
+            return faqs[hit[0]]
 
     return None
 

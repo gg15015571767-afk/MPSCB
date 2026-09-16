@@ -9,6 +9,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+rag = [
+    "sentence-transformers>=3.0",
+]
 dev = [
     "pytest>=8.0",
 ]
