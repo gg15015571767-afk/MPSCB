@@ -155,3 +155,10 @@
 - **根因**：nanobot 打包时要构建 WebUI bundle。
 - **解法**：设 `NANOBOT_SKIP_WEBUI_BUILD=1` 跳过（机器人无需 WebUI）。
 - **方法论**：**报错信息往往自带解法**（错误里直接提示了 `set NANOBOT_SKIP_WEBUI_BUILD=1`）。
+
+### 6.4 gateway 内部用 get_config_path 重新加载配置
+
+- **现象**：容器里机器人回复「遭遇错误」，日志 `No provider is configured for model 'anthropic/claude-opus-4-5'`。
+- **根因**：`_run_gateway` 内部的 `load_provider_snapshot()` 是**重新用 `get_config_path()` 加载 config**（默认 `~/.nanobot/config.json`），而不是用 `_run_gateway(config)` 传入的 config。本地因 `~/.nanobot/config.json` 已有配置而碰巧能跑，容器里没有就回落默认模型。
+- **解法**：`run_bot.py` 里显式 `set_config_path(config_path)`，让 gateway 内部也用项目的 `config.json`。
+- **方法论**：**框架内部可能绕过你传入的参数、用全局状态重新加载**；排查时看 traceback 里 config 对象的字段值（`workspace`/`model` 是默认值还是你的值），一眼定位。
