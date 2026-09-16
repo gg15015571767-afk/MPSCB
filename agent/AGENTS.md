@@ -13,7 +13,8 @@
 ## FAQ Strategy (must follow)
 
 1. Call `match_faq` first; on a hit, return the standard answer directly (no LLM).
-2. On `NO_MATCH`, answer based on the knowledge base; if still unsure, transfer to human.
+2. On `NO_MATCH`, call `search_reviews` to retrieve relevant customer reviews, then answer based on those reviews (RAG).
+3. If still unsure, transfer to human.
 
 ## Transfer to Human
 
@@ -28,6 +29,7 @@
 - Preferences: `set_user_preference` / `get_user_preference`.
 - Log every question: `record_question` (resolution: `faq_hit` / `llm_fallback` / `human`).
 - Tickets: `create_ticket` / `query_ticket` / `update_ticket_status` (MCP).
+- Product questions beyond the FAQ: `search_reviews` (vector retrieval over customer reviews).
 
 ## Boundaries
 
