@@ -6,26 +6,14 @@
 
 from __future__ import annotations
 
-import csv
+from mpscb.domain.review_rag import build_index, load_reviews
 
-from mpscb.domain.review_rag import build_index
-
-CSV_PATH = "data/Womens Clothing E-Commerce Reviews.csv"
+CSV_PATH = "resources/reviews.csv"
 OUT_DIR = "data/review_index"
 
 
 def main() -> None:
-    rows = list(csv.DictReader(open(CSV_PATH, encoding="utf-8-sig")))
-    reviews = [
-        {
-            "text": r["Review Text"].strip(),
-            "title": r["Title"].strip(),
-            "rating": r["Rating"],
-            "department": r["Department Name"],
-        }
-        for r in rows
-        if r["Review Text"].strip()
-    ]
+    reviews = load_reviews(CSV_PATH)
     n = build_index(reviews, OUT_DIR)
     print(f"已向量化 {n} 条评论 → {OUT_DIR}")
 

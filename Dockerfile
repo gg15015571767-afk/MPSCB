@@ -13,6 +13,9 @@ RUN NANOBOT_SKIP_WEBUI_BUILD=1 pip install --no-cache-dir -i https://pypi.tuna.t
 COPY MPSCB /app/mpscb
 RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple /app/mpscb
 
+# RAG 依赖（sentence-transformers + torch，较大）
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple "sentence-transformers>=3.0"
+
 WORKDIR /app/mpscb
 
 # 数据目录（SQLite 卷挂载点）

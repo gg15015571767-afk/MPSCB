@@ -33,3 +33,32 @@ def retrieve(query: str, index_dir: str | Path, top_k: int = 5) -> list[dict]:
     sims = embs @ q  # 已归一化，点积即余弦
     top_idx = np.argsort(-sims)[:top_k]
     return [{**reviews[int(i)], "score": float(sims[int(i)])} for i in top_idx]
+
+
+def load_reviews(csv_path: str | Path) -> list[dict]:
+    """从 CSV 加载评论（含 text/title/rating/department 字段）。"""
+    import csv
+
+    rows = list(csv.DictReader(Path(csv_path).open(encoding="utf-8-sig")))
+    return [
+        {
+            "text": r["Review Text"].strip(),
+            "title": r["Title"].strip(),
+            "rating": r["Rating"],
+            "department": r["Department Name"],
+        }
+        for r in rows
+        if r["Review Text"].strip()
+    ]
+
+
+def ensure_index(csv_path: str | Path, index_dir: str | Path) -> bool:
+    """若索引不存在则从 CSV 构建（约 1 分钟）；返回是否构建了。"""
+    index_dir = Path(index_dir)
+    if (index_dir / "review_embeddings.npy").exists():
+        return False
+    csv_path = Path(csv_path)
+    if not csv_path.exists():
+        return False
+    build_index(load_reviews(csv_path), index_dir)
+    return True
