@@ -1,0 +1,35 @@
+"""评论 RAG：向量化评论语料，检索与问题最相关的评论（Phase 2 完整 RAG）。
+
+用 embedding 把评论编码成向量存盘，检索时做余弦相似度 top-k，作为 LLM 回答的上下文。
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+import numpy as np
+
+from mpscb.domain.rag import embed
+
+
+def build_index(reviews: list[dict], out_dir: str | Path) -> int:
+    """把评论列表（每项含 text 等字段）向量化并存盘，返回条数。"""
+    texts = [r.get("text", "") for r in reviews]
+    embs = np.asarray(embed(texts), dtype=np.float32)  # (N, 384) 已归一化
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    np.save(out / "review_embeddings.npy", embs)
+    (out / "review_texts.json").write_text(json.dumps(reviews, ensure_ascii=False), encoding="utf-8")
+    return len(texts)
+
+
+def retrieve(query: str, index_dir: str | Path, top_k: int = 5) -> list[dict]:
+    """检索与 query 语义最相似的 top_k 条评论（带相似度分数）。"""
+    index_dir = Path(index_dir)
+    embs = np.load(index_dir / "review_embeddings.npy")
+    reviews = json.loads((index_dir / "review_texts.json").read_text(encoding="utf-8"))
+    q = np.asarray(embed([query])[0], dtype=np.float32)
+    sims = embs @ q  # 已归一化，点积即余弦
+    top_idx = np.argsort(-sims)[:top_k]
+    return [{**reviews[int(i)], "score": float(sims[int(i)])} for i in top_idx]
