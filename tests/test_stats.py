@@ -32,3 +32,18 @@ def test_average_rating(session):
     session.commit()
     assert stats_service.count_feedbacks_by_rating(session) == {"5": 1, "4": 1, "3": 1}
     assert stats_service.average_rating(session) == 4.0
+
+
+def test_unanswered_questions(session):
+    session.add_all(
+        [
+            QuestionRecord(user_id="u1", question="does this dress run small?", resolution="llm_fallback"),
+            QuestionRecord(user_id="u2", question="does this dress run small?", resolution="llm_fallback"),
+            QuestionRecord(user_id="u3", question="is the fabric see through?", resolution="faq_hit"),
+            QuestionRecord(user_id="u4", question="is the fabric see through?", resolution="human"),
+        ]
+    )
+    session.commit()
+    unanswered = stats_service.unanswered_questions(session)
+    assert unanswered[0] == ("does this dress run small?", 2)  # 出现 2 次且都未命中
+    assert ("is the fabric see through?", 1) in unanswered  # 只有 human 那次计入

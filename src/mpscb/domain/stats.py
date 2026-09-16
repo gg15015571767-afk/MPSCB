@@ -39,3 +39,15 @@ def average_rating(session: Session) -> float | None:
     if not ratings:
         return None
     return sum(ratings) / len(ratings)
+
+
+def unanswered_questions(session: Session, top_n: int = 10) -> list[tuple[str, int]]:
+    """高频未命中问题（resolution != faq_hit），按频次降序，作为「建议补 FAQ」的候选。"""
+    rows = session.execute(
+        select(QuestionRecord.question, func.count())
+        .where(QuestionRecord.resolution != "faq_hit")
+        .group_by(QuestionRecord.question)
+        .order_by(func.count().desc())
+        .limit(top_n)
+    ).all()
+    return [(q, cnt) for q, cnt in rows]
