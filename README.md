@@ -83,15 +83,19 @@ nanobot gateway --config agent/config.json
 ## Docker 部署（V1.2）
 
 ```bash
-# 前提：已安装 Docker 并启动
+# 前提：已安装并启动 Docker Desktop
+cd ~/CODE/NanobotProject/MPSCB
 docker compose up -d --build   # 构建并后台启动
 docker compose logs -f         # 查看日志
 docker compose down            # 停止
 ```
 
+关键设计：
+- **构建上下文是父目录**（`context: ..`），因为要 COPY 本地 `../nanobot`（领先 PyPI 0.3.0）。
+- **跳过 WebUI 打包**：`NANOBOT_SKIP_WEBUI_BUILD=1`（机器人无需 WebUI）。
+- **国内镜像**：基础镜像 DaoCloud、pip 清华镜像（部署到国外服务器时换回官方源）。
 - 密钥从 `.env` 经 `env_file` 注入，**不打包进镜像**。
-- SQLite 数据、会话状态分别挂到 `mpscb-data` / `mpscb-sessions` 卷，容器重启不丢。
-- `restart: unless-stopped` 保证崩溃后自动拉起，适合 7×24 运行。
+- SQLite 数据、会话状态挂到 `mpscb-data` / `mpscb-sessions` 卷，容器重启不丢；`restart: unless-stopped` 崩溃自动拉起。
 
 ## 文档索引
 

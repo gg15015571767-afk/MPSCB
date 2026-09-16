@@ -1,11 +1,13 @@
 services:
   mpscb:
-    build: .
+    build:
+      context: ..
+      dockerfile: MPSCB/Dockerfile
     env_file:
       - .env
     volumes:
-      - mpscb-data:/app/data
-      - mpscb-sessions:/app/sessions
+      - mpscb-data:/app/mpscb/data
+      - mpscb-sessions:/app/mpscb/sessions
     restart: unless-stopped
 
 volumes:

@@ -131,3 +131,27 @@
   1. 排查 `create` 场景下 `230101` 的确切触发条件（对照官方文档，确认是否需要单独开通「主动消息」权限）。
   2. 若飞书要求额外权限，去后台申请开通。
   3. 长期：按需在特定场景（如工单闭环通知）用 `create`，其余仍用 `reply`。
+
+---
+
+## 6. Docker 部署
+
+### 6.1 Docker Hub 网络不通（国内）
+
+- **现象**：`docker build` 拉 `python:3.11-slim` 超时（`auth.docker.io` i/o timeout）。
+- **根因**：Docker daemon 未走本机代理，国内直连 Docker Hub 失败。
+- **解法**：基础镜像走 DaoCloud 镜像（`docker.m.daocloud.io`），pip 走清华镜像（`-i https://pypi.tuna.tsinghua.edu.cn/simple`）。
+
+### 6.2 nanobot 版本不一致（本地 vs PyPI）
+
+- **现象**：容器报 `resolve_config_env_vars() got unexpected keyword argument 'config_path'`。
+- **根因**：本地 `../nanobot` 是 **v0.3.0-775**（领先 PyPI 0.3.0 共 775 个提交），代码用了新 API；PyPI 的 `nanobot-ai==0.3.0` 是旧版。
+- **解法**：Docker 构建上下文改为父目录，`COPY nanobot` 源码安装（而非 `pip install nanobot-ai`），保证与开发环境一致。
+- **方法论**：**本地依赖的版本可能领先已发布的 PyPI 版本**；Docker 化时要先核对本地版本号（`git describe --tags`）。
+
+### 6.3 nanobot 构建需 WebUI（bun/npm）
+
+- **现象**：`pip install /app/nanobot` 失败，报「neither `bun` nor `npm` is available on PATH」。
+- **根因**：nanobot 打包时要构建 WebUI bundle。
+- **解法**：设 `NANOBOT_SKIP_WEBUI_BUILD=1` 跳过（机器人无需 WebUI）。
+- **方法论**：**报错信息往往自带解法**（错误里直接提示了 `set NANOBOT_SKIP_WEBUI_BUILD=1`）。
