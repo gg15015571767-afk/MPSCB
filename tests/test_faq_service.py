@@ -7,26 +7,26 @@ from mpscb.domain.models import Faq
 
 
 def _seed(session):
-    session.add(Faq(keywords="login,password", question="How do I reset my password?", answer="Use the forgot password link"))
-    session.add(Faq(keywords="refund", question="How do I get a refund?", answer="Refunds within 7 days"))
+    session.add(Faq(keywords="宽带,网速,测速", question="电信宽带网速怎么测？", answer="登录电信网厅测速"))
+    session.add(Faq(keywords="话费,查询,余额", question="怎么查询电信话费？", answer="发短信或登录网厅查询"))
     session.commit()
 
 
 def test_exact_match(session):
     _seed(session)
-    got = match_faq(session, "How do I reset my password?")
-    assert got is not None and got.answer == "Use the forgot password link"
+    got = match_faq(session, "电信宽带网速怎么测？")
+    assert got is not None and got.answer == "登录电信网厅测速"
 
 
 def test_keyword_match(session):
     _seed(session)
-    got = match_faq(session, "I forgot my password and can't log in")
-    assert got is not None and "forgot password" in got.answer
+    got = match_faq(session, "我想查一下宽带网速")
+    assert got is not None and "测速" in got.answer
 
 
 def test_no_match(session):
     _seed(session)
-    assert match_faq(session, "What is the capital of France?") is None
+    assert match_faq(session, "如何做红烧肉") is None
 
 
 def test_empty_question(session):
