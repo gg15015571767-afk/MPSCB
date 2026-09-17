@@ -23,6 +23,7 @@ get_user_preference = "mpscb.tools.preference_tool:GetPreferenceTool"
 set_user_preference = "mpscb.tools.preference_tool:SetPreferenceTool"
 record_feedback = "mpscb.tools.feedback_tool:RecordFeedbackTool"
 search_reviews = "mpscb.tools.review_tool:SearchReviewsTool"
+search_qa = "mpscb.tools.qa_tool:SearchQaTool"
 
 [project.scripts]
 mpscb-ticket = "mpscb.mcp_server.server:main"

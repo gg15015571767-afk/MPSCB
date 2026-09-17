@@ -4,6 +4,7 @@ from mpscb.tools.faq_tool import MatchFaqTool
 from mpscb.tools.feedback_tool import RecordFeedbackTool
 from mpscb.tools.preference_tool import GetPreferenceTool, SetPreferenceTool
 from mpscb.tools.question_tool import RecordQuestionTool
+from mpscb.tools.qa_tool import SearchQaTool
 from mpscb.tools.review_tool import SearchReviewsTool
 
 __all__ = [
@@ -13,4 +14,5 @@ __all__ = [
     "SetPreferenceTool",
     "RecordFeedbackTool",
     "SearchReviewsTool",
+    "SearchQaTool",
 ]

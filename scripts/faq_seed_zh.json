@@ -1,0 +1,20 @@
+[
+  {"question": "电信宽带网速怎么测？", "answer": "登录中国电信网上营业厅在线测速，或用第三方测速软件。", "keywords": "宽带,网速,测速", "category": "宽带"},
+  {"question": "电信宽带故障怎么办？", "answer": "先重启光猫和路由器，仍不行请拨打客服热线报修。", "keywords": "宽带,故障,上不了网,断网", "category": "宽带"},
+  {"question": "电信宽带怎么办理？", "answer": "可通过电信网上营业厅或营业厅办理，选择适合的宽带套餐。", "keywords": "宽带,办理,安装,套餐", "category": "宽带"},
+  {"question": "电信话费余额怎么查？", "answer": "登录电信掌上营业厅 App，或发短信到 10001 查询。", "keywords": "话费,余额,查询", "category": "话费"},
+  {"question": "电信话费怎么充值？", "answer": "可通过掌上营业厅、微信/支付宝或营业厅充值。", "keywords": "话费,充值,缴费", "category": "话费"},
+  {"question": "电信欠费停机怎么办？", "answer": "及时缴清欠费后会自动复机，或联系客服处理。", "keywords": "欠费,停机,复机", "category": "话费"},
+  {"question": "电信流量不够用怎么办？", "answer": "可开通流量加餐包或叠加流量包，也可致电客服办理。", "keywords": "流量,不够用,加餐包,叠加", "category": "流量"},
+  {"question": "电信流量怎么查询？", "answer": "登录掌上营业厅或发短信到 10001 查询剩余流量。", "keywords": "流量,查询,剩余", "category": "流量"},
+  {"question": "电信套餐怎么更换？", "answer": "符合条件的用户可登录网上营业厅或营业厅变更套餐。", "keywords": "套餐,更换,变更", "category": "套餐"},
+  {"question": "电信套餐资费怎么查？", "answer": "登录网上营业厅或掌上营业厅查看当前套餐及资费。", "keywords": "套餐,资费,费用", "category": "套餐"},
+  {"question": "电信积分怎么查询？", "answer": "登录网上营业厅积分专区或掌上营业厅查询积分。", "keywords": "积分,查询", "category": "积分"},
+  {"question": "电信积分怎么兑换？", "answer": "登录积分商城，可兑换话费、流量、实物等。", "keywords": "积分,兑换,商城", "category": "积分"},
+  {"question": "电信手机卡丢了怎么补办？", "answer": "携带身份证到当地电信营业厅办理补卡。", "keywords": "补卡,补办,丢卡,挂失", "category": "补卡"},
+  {"question": "电信手机卡怎么挂失？", "answer": "拨打客服热线或登录掌上营业厅办理挂失。", "keywords": "挂失,停机,丢卡", "category": "补卡"},
+  {"question": "电信信号差怎么办？", "answer": "检查是否处于信号盲区，可尝试开关飞行模式或重启手机。", "keywords": "信号,信号差,无服务", "category": "故障"},
+  {"question": "电信客服电话是多少？", "answer": "电信客服热线是 10000。", "keywords": "客服,电话,热线", "category": "其他"},
+  {"question": "电信网上营业厅怎么登录？", "answer": "用手机号和服务密码（或验证码）登录网上营业厅。", "keywords": "网厅,营业厅,登录", "category": "其他"},
+  {"question": "电信volte怎么开通？", "answer": "部分手机可在设置里开启 VoLTE，或联系客服开通。", "keywords": "volte,高清通话,开通", "category": "其他"}
+]

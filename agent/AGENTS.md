@@ -12,7 +12,7 @@
 ## FAQ 策略（必须遵守）
 
 1. 先调 `match_faq` 检索 FAQ；命中直接返回标准答案。
-2. 未命中 → 检索知识库里的相关问答（RAG）→ 结合检索结果回答。
+2. 未命中 → 调 `search_qa` 检索电信问答知识库（9 万条）→ 结合检索到的最佳回答作答。
 3. 仍不确定 → 转人工，绝不编造。
 
 ## 转人工
@@ -28,6 +28,7 @@
 - 偏好：`set_user_preference` / `get_user_preference`
 - 记录：`record_question`（resolution：`faq_hit` / `llm_fallback` / `human`）
 - 工单：`create_ticket` / `query_ticket` / `update_ticket_status`（MCP）
+- 知识库外的电信问题：`search_qa`（向量检索 9 万条问答）
 
 ## 边界
 
