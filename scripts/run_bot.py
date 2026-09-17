@@ -30,7 +30,7 @@ def main() -> None:
 
     resolved = Path("config.json").resolve()
     set_config_path(resolved)  # 关键：让 gateway 内部的 load_provider_snapshot 也用我们的 config
-    config = resolve_config_env_vars(load_config(resolved), config_path=resolved)
+    config = resolve_config_env_vars(load_config(resolved))
 
     # 3) 启动 gateway（飞书 channel + agent loop，同进程，工具状态已就绪）
     from nanobot.cli.gateway_runtime import _run_gateway

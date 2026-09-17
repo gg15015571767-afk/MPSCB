@@ -1,0 +1,26 @@
+# 版本控制 / IDE
+.git
+.idea
+.DS_Store
+
+# Python
+__pycache__
+*.pyc
+*.egg-info
+.pytest_cache
+.venv
+venv
+
+# 密钥（运行时经 env_file 注入，不打包进镜像）
+.env
+.env.*
+
+# 运行时数据（用卷挂载，不进镜像）
+data/
+sessions/
+agent/memory/
+agent/.nanobot/
+agent/cron/
+agent/triggers/
+agent/HEARTBEAT.md
+*.db
