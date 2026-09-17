@@ -33,7 +33,7 @@ def main() -> None:
     config = resolve_config_env_vars(load_config(resolved))
 
     # 3) 启动 gateway（飞书 channel + agent loop，同进程，工具状态已就绪）
-    from nanobot.cli.gateway_runtime import _run_gateway
+    from nanobot.cli.commands import _run_gateway
 
     _run_gateway(config)
 
