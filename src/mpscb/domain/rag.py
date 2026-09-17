@@ -31,7 +31,7 @@ def embed(texts: list[str]) -> list[list[float]]:
 def semantic_match(
     question: str,
     candidates: list[str],
-    threshold: float = 0.45,
+    threshold: float = 0.55,
 ) -> tuple[int, float] | None:
     """返回与 question 语义最相似的 candidate 下标 + 余弦相似度；低于阈值返回 None。"""
     if not candidates:

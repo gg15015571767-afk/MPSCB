@@ -64,6 +64,18 @@ def ensure_index(csv_path: str | Path, index_dir: str | Path) -> bool:
     return True
 
 
+def ensure_qa_index(csv_path: str | Path, index_dir: str | Path) -> bool:
+    """若电信问答索引不存在则从 CSV 构建（约 1-2 分钟）；返回是否构建了。"""
+    index_dir = Path(index_dir)
+    if (index_dir / "review_embeddings.npy").exists():
+        return False
+    csv_path = Path(csv_path)
+    if not csv_path.exists():
+        return False
+    build_index(load_telecom_qa(csv_path), index_dir)
+    return True
+
+
 def load_telecom_qa(csv_path: str | Path, limit: int | None = None) -> list[dict]:
     """加载电信问答数据，返回 [{"text": 问题, "answer": 最佳回答}]，只取 is_best=1。
 

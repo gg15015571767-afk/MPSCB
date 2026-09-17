@@ -19,11 +19,11 @@ def main() -> None:
     # 1) 加载 .env + 注入工具状态（DB 会话工厂 + 偏好存储）——必须与 agent 同进程
     init_runtime()
 
-    # 1.5) 确保评论向量索引存在（RAG，首次约 1 分钟）
-    from mpscb.domain.review_rag import ensure_index
+    # 1.5) 确保电信问答向量索引存在（RAG，首次约 1-2 分钟）
+    from mpscb.domain.review_rag import ensure_qa_index
 
-    if ensure_index("resources/reviews.csv", "data/review_index"):
-        print("已构建评论向量索引")
+    if ensure_qa_index("resources/anhuidianxinzhidao_filter.csv", "data/qa_index"):
+        print("已构建电信问答索引")
 
     # 2) 加载并解析 nanobot 配置（含 ${VAR} 环境变量引用）
     from nanobot.config.loader import load_config, resolve_config_env_vars, set_config_path
