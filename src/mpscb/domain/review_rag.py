@@ -62,3 +62,24 @@ def ensure_index(csv_path: str | Path, index_dir: str | Path) -> bool:
         return False
     build_index(load_reviews(csv_path), index_dir)
     return True
+
+
+def load_telecom_qa(csv_path: str | Path, limit: int | None = None) -> list[dict]:
+    """加载电信问答数据，返回 [{"text": 问题, "answer": 最佳回答}]，只取 is_best=1。
+
+    question 字段为空时回退用 title（短版问题）。
+    """
+    import csv
+
+    qa: list[dict] = []
+    with open(csv_path, encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            if r.get("is_best") != "1":
+                continue
+            q = (r.get("question") or "").strip() or (r.get("title") or "").strip()
+            a = (r.get("reply") or "").strip()
+            if q and a:
+                qa.append({"text": q, "answer": a})
+            if limit is not None and len(qa) >= limit:
+                break
+    return qa

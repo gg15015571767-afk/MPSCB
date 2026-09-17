@@ -1,0 +1,5 @@
+数据集地址
+https://github.com/SophonPlus/ChineseNlpCorpus/tree/master
+
+使用数据集：
+安徽电信知道：15.6 万条电信问答数据，包括用户提问、网友回答、最佳回答

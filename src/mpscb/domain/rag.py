@@ -16,7 +16,8 @@ def _get_model():
     os.environ.setdefault("HF_ENDPOINT", "https://hf-mirror.com")
     from sentence_transformers import SentenceTransformer
 
-    return SentenceTransformer("all-MiniLM-L6-v2")
+    # 中文 embedding（可经 MPSCB_EMBED_MODEL 覆盖）
+    return SentenceTransformer(os.environ.get("MPSCB_EMBED_MODEL", "BAAI/bge-small-zh-v1.5"))
 
 
 def embed(texts: list[str]) -> list[list[float]]:
