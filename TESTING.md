@@ -65,3 +65,28 @@ python scripts/run_bot.py
 3. **Mock 一切外部**：LLM、飞书、MCP 进程、数据库，单测里全部可控替代，保证秒级、可重复。
 4. **真实环境单独跑**：真实 DeepSeek/飞书只放进 `smoke.py` / `run_bot.py`，不进 pytest（避免测试依赖网络和凭证）。
 5. **fixture 即文档**：飞书 payload fixture 既是测试数据，也是外部接口格式的活文档。
+
+## 6. RAG 检索评估（电信问答）
+
+> 用带 ground-truth（「最佳回答」）的电信问答数据，量化评估 RAG 检索质量。
+
+### 评估方法（3 层）
+
+1. **检索质量评估**（`scripts/eval_retrieval.py`）：加载 9.1 万条「问题→最佳回答」→ 建向量索引 → 抽 1000 条测试 → 检索 top-2（跳过自身）→ 统计「最相似的其他问题」的相似度。
+2. **加载单元测试**（`tests/test_telecom.py`）：mock CSV，测 `load_telecom_qa` 的 is_best 过滤、question 空时回退 title、跳过空 reply。
+3. **端到端验证**：真实电信问题 → 检索 → 人工核对答案相关性。
+
+### 结果
+
+| 指标 | 值 |
+|------|-----|
+| 平均 top-1 相似度 | **0.864** |
+| 相似度 > 0.7 比例 | 98.7% |
+| 端到端（5 个真实问题） | 5/5 召回相关回答（相似度 0.83–0.97） |
+
+### 怎么跑
+
+```bash
+python scripts/eval_retrieval.py            # 检索质量评估（约 1-2 分钟建索引）
+python -m pytest tests/test_telecom.py      # 加载单元测试
+```
