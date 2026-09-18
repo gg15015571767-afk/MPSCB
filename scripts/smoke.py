@@ -28,7 +28,7 @@ def _extract_text(result) -> str:
 
 
 async def _run() -> None:
-    init_runtime(db_path="data/smoke.db", pref_path="data/smoke_pref.json")
+    init_runtime(db_path="data/smoke.db")
     session_factory = state.get_session_factory()
 
     with session_factory() as s:

@@ -28,7 +28,7 @@ def _text(result) -> str:
 
 
 def test_e2e_full_flow(tmp_path):
-    init_runtime(db_path=str(tmp_path / "e2e.db"), pref_path=str(tmp_path / "pref.json"))
+    init_runtime(db_path=str(tmp_path / "e2e.db"))
     session_factory = state.get_session_factory()
 
     with session_factory() as s:

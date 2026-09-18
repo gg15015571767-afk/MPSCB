@@ -5,14 +5,13 @@ from __future__ import annotations
 import os
 
 from mpscb.domain.db import create_engine_for_db, make_session_factory
-from mpscb.domain.preference import FilePreferenceStore
+from mpscb.domain.preference import SqlPreferenceStore
 from mpscb.tools import state
 
 DEFAULT_DB = "data/mpscb.db"
-DEFAULT_PREF = "data/preferences.json"
 
 
-def init_runtime(db_path: str | None = None, pref_path: str | None = None):
+def init_runtime(db_path: str | None = None):
     """初始化业务运行时：加载 .env → DB 引擎 + 偏好存储，并注入工具层单例。
 
     必须在启动 nanobot agent（同进程）之前调用，工具才能拿到 DB/偏好依赖。
@@ -21,10 +20,9 @@ def init_runtime(db_path: str | None = None, pref_path: str | None = None):
 
     load_dotenv()  # 加载项目根 .env（DEEPSEEK_API_KEY / FEISHU_* / MPSCB_*）
     db = db_path or os.environ.get("MPSCB_DB", DEFAULT_DB)
-    pref = pref_path or os.environ.get("MPSCB_PREF", DEFAULT_PREF)
     engine = create_engine_for_db(db)
     session_factory = make_session_factory(engine)
-    preference_store = FilePreferenceStore(pref)
+    preference_store = SqlPreferenceStore(session_factory)  # 偏好存 SQLite（与业务同库）
     state.init(session_factory=session_factory, preference_store=preference_store)
     return session_factory, preference_store
 

@@ -10,7 +10,7 @@ import pytest
 from nanobot.agent.tools.context import RequestContext, request_context
 
 from mpscb.domain.models import Faq, Feedback, QuestionRecord
-from mpscb.domain.preference import FilePreferenceStore
+from mpscb.domain.preference import SqlPreferenceStore
 from mpscb.tools import state
 from mpscb.tools.faq_tool import MatchFaqTool
 from mpscb.tools.feedback_tool import RecordFeedbackTool
@@ -26,8 +26,8 @@ def ctx():
 
 
 @pytest.fixture
-def store(tmp_path):
-    return FilePreferenceStore(tmp_path / "pref.json")
+def store(session_factory):
+    return SqlPreferenceStore(session_factory)
 
 
 @pytest.fixture
